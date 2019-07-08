@@ -12,6 +12,7 @@ import ru.alexdern.spring.audit.domain.Event;
 import ru.alexdern.spring.audit.domain.User;
 import ru.alexdern.spring.audit.dto.EventDto;
 import ru.alexdern.spring.audit.dto.UserDto;
+import ru.alexdern.spring.audit.exception.UserNotFoundException;
 import ru.alexdern.spring.audit.service.EventService;
 import ru.alexdern.spring.audit.service.UserService;
 
@@ -42,8 +43,8 @@ public class UserController {
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity getById(@PathVariable("id") Long id) {
-        return ok(userService.findById(id));
+    public UserDto getById(@PathVariable("id") Long id) {
+        return UserDto.fromUser(userService.findByEID(id).orElseThrow(() -> new UserNotFoundException(id)));
     }
 
     @GetMapping(value = "/{id}/events", produces = MediaType.APPLICATION_JSON_VALUE)

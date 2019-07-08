@@ -29,8 +29,8 @@ public class EventController {
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity getById(@PathVariable("id") Long id) {
-        return ok(eventService.findById(id));
+    public Event getById(@PathVariable("id") Long id) {
+        return eventService.findById(id);
     }
 
 }

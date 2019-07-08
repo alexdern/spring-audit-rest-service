@@ -2,6 +2,7 @@ package ru.alexdern.spring.audit.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+
 import org.springframework.stereotype.Service;
 import ru.alexdern.spring.audit.domain.Event;
 import ru.alexdern.spring.audit.exception.EventNotFoundException;
@@ -9,7 +10,8 @@ import ru.alexdern.spring.audit.repository.EventRepository;
 
 import java.util.List;
 
-import static ru.alexdern.spring.audit.repository.specification.EventSpecification.eventByUserEID;
+import static org.springframework.data.jpa.domain.Specification.where;
+import static ru.alexdern.spring.audit.repository.specification.EventSpecification.*;
 
 
 @Service
@@ -28,7 +30,7 @@ public class EventService {
     }
 
     public List<Event> findAllByUserEID(Long user_eid) {
-        return repo.findAll(eventByUserEID(user_eid));
+        return repo.findAll(byUserEID(user_eid));
     }
 
 
